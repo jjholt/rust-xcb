@@ -491,7 +491,76 @@ event.
         </doc>
     </event>
 
-    <eventcopy name="KeyRelease" number="3" ref="KeyPress" />
+    <event name="KeyRelease" number="3">
+        <field type="KEYCODE" name="detail" />
+        <field type="TIMESTAMP" name="time" />
+        <field type="WINDOW" name="root" />
+        <field type="WINDOW" name="event" />
+        <field type="WINDOW" name="child" altenum="Window" />
+        <field type="INT16" name="root_x" />
+        <field type="INT16" name="root_y" />
+        <field type="INT16" name="event_x" />
+        <field type="INT16" name="event_y" />
+        <field type="CARD16" name="state" mask="KeyButMask" />
+        <field type="BOOL" name="same_screen" />
+        <pad bytes="1" />
+        <doc>
+            <brief>a key was pressed/released</brief>
+            <field name="detail">
+                <![CDATA[
+The keycode (a number representing a physical key on the keyboard) of the key
+which was pressed.
+      ]]>
+            </field>
+            <field name="time">
+                <![CDATA[
+Time when the event was generated (in milliseconds).
+      ]]>
+            </field>
+            <field name="root">
+                <![CDATA[
+The root window of `child`.
+      ]]>
+            </field>
+            <field name="same_screen">
+                <![CDATA[
+Whether the `event` window is on the same screen as the `root` window.
+      ]]>
+            </field>
+            <field name="event_x">
+                <![CDATA[
+If `same_screen` is true, this is the X coordinate relative to the `event`
+window's origin. Otherwise, `event_x` will be set to zero.
+      ]]>
+            </field>
+            <field name="event_y">
+                <![CDATA[
+If `same_screen` is true, this is the Y coordinate relative to the `event`
+window's origin. Otherwise, `event_y` will be set to zero.
+      ]]>
+            </field>
+            <field name="root_x">
+                <![CDATA[
+The X coordinate of the pointer relative to the `root` window at the time of
+the event.
+      ]]>
+            </field>
+            <field name="root_y">
+                <![CDATA[
+The Y coordinate of the pointer relative to the `root` window at the time of
+the event.
+      ]]>
+            </field>
+            <field name="state">
+                <![CDATA[
+The logical state of the pointer buttons and modifier keys just prior to the
+event.
+      ]]>
+            </field>
+            <see type="request" name="GrabKey" />
+            <see type="request" name="GrabKeyboard" />
+        </doc>
+    </event>
 
     <enum name="ButtonMask">
         <item name="1">
@@ -585,7 +654,76 @@ event.
         </doc>
     </event>
 
-    <eventcopy name="ButtonRelease" number="5" ref="ButtonPress" />
+    <event name="ButtonRelease" number="5">
+        <field type="BUTTON" name="detail" />
+        <field type="TIMESTAMP" name="time" />
+        <field type="WINDOW" name="root" />
+        <field type="WINDOW" name="event" />
+        <field type="WINDOW" name="child" altenum="Window" />
+        <field type="INT16" name="root_x" />
+        <field type="INT16" name="root_y" />
+        <field type="INT16" name="event_x" />
+        <field type="INT16" name="event_y" />
+        <field type="CARD16" name="state" mask="KeyButMask" />
+        <field type="BOOL" name="same_screen" />
+        <pad bytes="1" />
+        <doc>
+            <brief>a mouse button was pressed/released</brief>
+            <field name="detail">
+                <![CDATA[
+The keycode (a number representing a physical key on the keyboard) of the key
+which was pressed.
+      ]]>
+            </field>
+            <field name="time">
+                <![CDATA[
+Time when the event was generated (in milliseconds).
+      ]]>
+            </field>
+            <field name="root">
+                <![CDATA[
+The root window of `child`.
+      ]]>
+            </field>
+            <field name="same_screen">
+                <![CDATA[
+Whether the `event` window is on the same screen as the `root` window.
+      ]]>
+            </field>
+            <field name="event_x">
+                <![CDATA[
+If `same_screen` is true, this is the X coordinate relative to the `event`
+window's origin. Otherwise, `event_x` will be set to zero.
+      ]]>
+            </field>
+            <field name="event_y">
+                <![CDATA[
+If `same_screen` is true, this is the Y coordinate relative to the `event`
+window's origin. Otherwise, `event_y` will be set to zero.
+      ]]>
+            </field>
+            <field name="root_x">
+                <![CDATA[
+The X coordinate of the pointer relative to the `root` window at the time of
+the event.
+      ]]>
+            </field>
+            <field name="root_y">
+                <![CDATA[
+The Y coordinate of the pointer relative to the `root` window at the time of
+the event.
+      ]]>
+            </field>
+            <field name="state">
+                <![CDATA[
+The logical state of the pointer buttons and modifier keys just prior to the
+event.
+      ]]>
+            </field>
+            <see type="request" name="GrabButton" />
+            <see type="request" name="GrabPointer" />
+        </doc>
+    </event>
 
     <!-- MotionNotify detail -->
     <enum name="Motion">
@@ -767,8 +905,62 @@ relative to the event window's origin.
         </doc>
     </event>
 
-    <eventcopy name="LeaveNotify" number="8" ref="EnterNotify" />
-
+    <event name="LeaveNotify" number="8">
+        <field type="BYTE" name="detail" enum="NotifyDetail" />
+        <field type="TIMESTAMP" name="time" />
+        <field type="WINDOW" name="root" />
+        <field type="WINDOW" name="event" />
+        <field type="WINDOW" name="child" altenum="Window" />
+        <field type="INT16" name="root_x" />
+        <field type="INT16" name="root_y" />
+        <field type="INT16" name="event_x" />
+        <field type="INT16" name="event_y" />
+        <field type="CARD16" name="state" mask="KeyButMask" />
+        <field type="BYTE" name="mode" enum="NotifyMode" />
+        <field type="BYTE" name="same_screen_focus" />
+        <doc>
+            <brief>the pointer is in a different window</brief>
+            <field name="event">
+                <![CDATA[
+The window on which the event was generated.
+      ]]>
+            </field>
+            <field name="child">
+                <![CDATA[
+If the `event` window has subwindows and the final pointer position is in one
+of them, then `child` is set to that subwindow, `XCB_WINDOW_NONE` otherwise.
+      ]]>
+            </field>
+            <field name="root">
+                <![CDATA[
+The root window for the final cursor position.
+      ]]>
+            </field>
+            <field name="root_x">
+                <![CDATA[
+The pointer X coordinate relative to `root`'s origin at the time of the event.
+      ]]>
+            </field>
+            <field name="root_y">
+                <![CDATA[
+The pointer Y coordinate relative to `root`'s origin at the time of the event.
+      ]]>
+            </field>
+            <field name="event_x">
+                <![CDATA[
+If `event` is on the same screen as `root`, this is the pointer X coordinate
+relative to the event window's origin.
+      ]]>
+            </field>
+            <field name="event_y">
+                <![CDATA[
+If `event` is on the same screen as `root`, this is the pointer Y coordinate
+relative to the event window's origin.
+      ]]>
+            </field>
+            <field name="mode" />
+        </doc>
+    </event>
     <event name="FocusIn" number="9">
         <field type="BYTE" name="detail" enum="NotifyDetail" />
         <field type="WINDOW" name="event" />
@@ -788,8 +980,24 @@ the X server to report the event.
         </doc>
     </event>
 
-    <eventcopy name="FocusOut" number="10" ref="FocusIn" />
-
+    <event name="FocusOut" number="10">
+        <field type="BYTE" name="detail" enum="NotifyDetail" />
+        <field type="WINDOW" name="event" />
+        <field type="BYTE" name="mode" enum="NotifyMode" />
+        <pad bytes="3" />
+        <doc>
+            <brief>NOT YET DOCUMENTED</brief>
+            <field name="event">
+                <![CDATA[
+The window on which the focus event was generated. This is the window used by
+the X server to report the event.
+      ]]>
+            </field>
+            <!-- enum documentation is sufficient -->
+            <field name="detail" />
+            <field name="mode" />
+        </doc>
+    </event>
     <event name="KeymapNotify" number="11" no-sequence-number="true">
         <list type="CARD8" name="keys">
             <value>31</value>
@@ -1150,8 +1358,31 @@ The restacked window.
         </doc>
     </event>
 
-    <eventcopy name="CirculateRequest" number="27" ref="CirculateNotify" />
-
+    <event name="CirculateRequest" number="27">
+        <pad bytes="1" />
+        <field type="WINDOW" name="event" />
+        <field type="WINDOW" name="window" />
+        <pad bytes="4" />
+        <field type="BYTE" name="place" enum="Place" />
+        <pad bytes="3" />
+        <doc>
+            <brief>NOT YET DOCUMENTED</brief>
+            <field name="event">
+                <![CDATA[
+Either the restacked window or its parent, depending on whether
+`StructureNotify` or `SubstructureNotify` was selected.
+      ]]>
+            </field>
+            <field name="window">
+                <![CDATA[
+The restacked window.
+      ]]>
+            </field>
+            <!-- the enum doc is sufficient -->
+            <field name="place" />
+            <see type="request" name="CirculateWindow" />
+        </doc>
+    </event>
     <enum name="Property">
         <item name="NewValue">
             <value>0</value>
@@ -1201,6 +1432,12 @@ A timestamp of the server time when the property was changed.
     <enum name="Time">
         <item name="CurrentTime">
             <value>0</value>
+        </item>
+    </enum>
+
+    <enum name="XCB">
+        <item name="KEY_PRESS">
+            <value>2</value>
         </item>
     </enum>
 
